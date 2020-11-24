@@ -1,4 +1,5 @@
 import 'authentication.dart';
+import 'query_param.dart';
 
 class HttpBearerAuth implements Authentication {
   dynamic _accessToken;

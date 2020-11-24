@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'authentication.dart';
+import 'query_param.dart';
 
 class HttpBasicAuth implements Authentication {
   String _username;
