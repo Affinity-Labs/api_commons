@@ -30,14 +30,23 @@ class ApiException implements Exception {
   String reason({String resource = 'resource'}) {
     if (message != null && message.isNotEmpty) {
       try {
-        final Map<String, dynamic> messageMap = jsonDecode(message);
-        if (messageMap.containsKey('errorMsg')) {
-          final String errorMsg = messageMap['errorMsg'];
+        final dynamic decodedJson = jsonDecode(message);
+        Map<String, dynamic> jsonMap;
+        if (decodedJson is List) {
+          jsonMap = decodedJson[0];
+        } else {
+          jsonMap = decodedJson;
+        }
+
+        if (jsonMap.containsKey('errorMsg')) {
+          final String errorMsg = jsonMap['errorMsg'];
           if (errorMsg != null && errorMsg.isNotEmpty) {
             return errorMsg;
           }
         }
-      } finally {}
+      } catch (e) {
+        // Ignore error
+      }
     }
 
     switch (code) {
