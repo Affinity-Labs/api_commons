@@ -38,7 +38,7 @@ class ApiException implements Exception {
       case HttpStatus.badRequest:
         return "Your request couldn't be processed. Please try again";
       case HttpStatus.unauthorized:
-        return 'Please provide your credentials to perform this operation';
+        return 'Session expired. Please login to continue';
       case HttpStatus.forbidden:
         return 'Forbidden';
       case HttpStatus.notFound:
