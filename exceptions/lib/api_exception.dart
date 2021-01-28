@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 class ApiException implements Exception {
@@ -27,6 +28,18 @@ class ApiException implements Exception {
   /// This provides a reason for only a few common status codes.
   ///
   String reason({String resource = 'resource'}) {
+    if (message != null && message.isNotEmpty) {
+      try {
+        final Map<String, dynamic> messageMap = jsonDecode(message);
+        if (messageMap.containsKey('errorMsg')) {
+          final String errorMsg = messageMap['errorMsg'];
+          if (errorMsg != null && errorMsg.isNotEmpty) {
+            return errorMsg;
+          }
+        }
+      } finally {}
+    }
+
     switch (code) {
       // 2xx
       case HttpStatus.ok:
