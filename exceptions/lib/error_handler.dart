@@ -2,7 +2,7 @@
 ///
 ///
 abstract class ErrorHandler {
-  // Return true if you want to consume this exception and prevent the
-  // exception from being rethrown, and false otherwise.
-  bool consume(dynamic exception);
+  // A callback method that is called for this handler to process this error
+  // before it's rethrown to the caller.
+  void handle(dynamic exception);
 }
