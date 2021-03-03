@@ -58,7 +58,7 @@ class ApiException implements Exception {
 
       // 4xx
       case HttpStatus.badRequest:
-        return "Your request couldn't be processed. Please try again";
+        return "Your request couldn’t be processed. Please try again";
       case HttpStatus.unauthorized:
         return 'Session expired. Please login to continue';
       case HttpStatus.forbidden:
@@ -68,7 +68,7 @@ class ApiException implements Exception {
 
       // 5xx
       case HttpStatus.internalServerError:
-        return "Something went wrong on our side. We're working to fix it.";
+        return "Something went wrong on our side. We’re working to fix it.";
 
       default:
         return message;
