@@ -4,7 +4,7 @@ import 'query_param.dart';
 class HttpBearerAuth implements Authentication {
   dynamic _accessToken;
 
-  HttpBearerAuth() {}
+  HttpBearerAuth();
 
   @override
   void applyToParams(
