@@ -7,10 +7,31 @@ class ApiException implements Exception {
   Exception innerException;
   StackTrace stackTrace;
 
-  ApiException(this.code, this.message);
+  Map<String, dynamic> _jsonMap;
+  ApiException(this.code, String message) {
+    _initJsonMap(message);
+  }
 
   ApiException.withInner(
-      this.code, this.message, this.innerException, this.stackTrace);
+      this.code, String message, this.innerException, this.stackTrace) {
+    _initJsonMap(message);
+  }
+
+  void _initJsonMap(String message) {
+    if (message != null && message.isNotEmpty) {
+      try {
+        this.message = message;
+        dynamic _decodedJson = jsonDecode(message);
+        if (_decodedJson is List) {
+          _jsonMap = _decodedJson[0];
+        } else {
+          _jsonMap = _decodedJson;
+        }
+      } catch (e) {
+        // Ignore error
+      }
+    }
+  }
 
   String toString() {
     if (message == null) return "ApiException";
@@ -23,29 +44,24 @@ class ApiException implements Exception {
         stackTrace.toString();
   }
 
+  String action() {
+    String action;
+    if (_jsonMap != null && _jsonMap.containsKey('action')) {
+      action = _jsonMap['action'];
+    }
+
+    return action ?? '';
+  }
+
   ///
   /// Provide reason for exception based on http status code value.
   /// This provides a reason for only a few common status codes.
   ///
   String reason({String resource = 'resource'}) {
-    if (message != null && message.isNotEmpty) {
-      try {
-        final dynamic decodedJson = jsonDecode(message);
-        Map<String, dynamic> jsonMap;
-        if (decodedJson is List) {
-          jsonMap = decodedJson[0];
-        } else {
-          jsonMap = decodedJson;
-        }
-
-        if (jsonMap.containsKey('errorMsg')) {
-          final String errorMsg = jsonMap['errorMsg'];
-          if (errorMsg != null && errorMsg.isNotEmpty) {
-            return errorMsg;
-          }
-        }
-      } catch (e) {
-        // Ignore error
+    if (_jsonMap != null && _jsonMap.containsKey('errorMsg')) {
+      final String errorMsg = _jsonMap['errorMsg'];
+      if (errorMsg != null && errorMsg.isNotEmpty) {
+        return errorMsg;
       }
     }
 
