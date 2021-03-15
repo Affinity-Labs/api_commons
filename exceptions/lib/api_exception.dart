@@ -33,7 +33,7 @@ class ApiException implements Exception {
     }
   }
 
-  String toString() {
+  String toRawString() {
     if (message == null) return "ApiException";
 
     if (innerException == null) {
@@ -42,6 +42,10 @@ class ApiException implements Exception {
 
     return "ApiException $code: $message (Inner exception: $innerException)\n\n" +
         stackTrace.toString();
+  }
+
+  String toString() {
+    return reason();
   }
 
   String action() {
