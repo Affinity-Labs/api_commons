@@ -2,17 +2,14 @@ import 'authentication.dart';
 import 'query_param.dart';
 
 class OAuth implements Authentication {
-  String _accessToken;
+  OAuth({this.accessToken});
 
-  OAuth({String accessToken}) : _accessToken = accessToken;
+  String accessToken;
 
   @override
-  void applyToParams(
-      List<QueryParam> queryParams, Map<String, String> headerParams) {
-    if (_accessToken != null) {
-      headerParams["Authorization"] = "Bearer $_accessToken";
+  void applyToParams(List<QueryParam> queryParams, Map<String, String> headerParams) {
+    if (accessToken != null) {
+      headerParams['Authorization'] = 'Bearer $accessToken';
     }
   }
-
-  set accessToken(String accessToken) => _accessToken = accessToken;
 }

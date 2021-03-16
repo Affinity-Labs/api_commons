@@ -1,6 +1,10 @@
 class QueryParam {
-  String name;
-  String value;
+  const QueryParam(this.name, this.value);
 
-  QueryParam(this.name, this.value);
+  final String name;
+  final String value;
+
+  @override
+  String toString() =>
+      '${Uri.encodeQueryComponent(name)}=${Uri.encodeQueryComponent(value)}';
 }
