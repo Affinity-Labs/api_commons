@@ -69,6 +69,10 @@ class ApiException implements Exception {
       }
     }
 
+    if (innerException != null && innerException is SocketException) {
+      return 'Please check your internet connection and try again';
+    }
+
     switch (code) {
       // 2xx
       case HttpStatus.ok:
