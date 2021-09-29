@@ -94,6 +94,9 @@ class ApiException implements Exception {
       case HttpStatus.internalServerError:
         return "Something went wrong on our side. We’re working to fix it.";
 
+      case HttpStatus.gatewayTimeout:
+        return "We're experiencing difficulties reaching Affinity. Please try again.";
+
       default:
         return message;
     }
