@@ -10,17 +10,12 @@ class HttpBearerAuth implements Authentication {
 
   dynamic get accessToken => _accessToken;
 
-  // Add this method for compatibility
-  void setAccessToken(dynamic accessToken) {
-    accessToken(accessToken);
-  }
-
   set accessToken(dynamic accessToken) {
     if (accessToken is! String && accessToken is! HttpBearerAuthProvider) {
       throw ArgumentError(
           'Type of Bearer accessToken should be a String or a String Function().');
     }
-    this._accessToken = accessToken;
+    _accessToken = accessToken;
   }
 
   @override
