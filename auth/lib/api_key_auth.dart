@@ -2,13 +2,13 @@ import 'authentication.dart';
 import 'query_param.dart';
 
 class ApiKeyAuth implements Authentication {
-  ApiKeyAuth(this.location, this.paramName);
+  ApiKeyAuth(this.location, this.paramName, {this.apiKeyPrefix, this.apiKey});
 
   final String location;
   final String paramName;
 
-  String apiKeyPrefix;
-  String apiKey;
+  String? apiKeyPrefix;
+  String? apiKey;
 
   @override
   void applyToParams(

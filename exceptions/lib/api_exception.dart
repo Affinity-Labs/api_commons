@@ -3,21 +3,21 @@ import 'dart:io';
 
 class ApiException implements Exception {
   int code = 0;
-  String message;
-  Exception innerException;
-  StackTrace stackTrace;
+  String? message;
+  Exception? innerException;
+  StackTrace? stackTrace;
 
-  Map<String, dynamic> _jsonMap;
-  ApiException(this.code, String message) {
+  Map<String, dynamic>? _jsonMap;
+  ApiException(this.code, String? message) {
     _initJsonMap(message);
   }
 
   ApiException.withInner(
-      this.code, String message, this.innerException, this.stackTrace) {
+      this.code, String? message, this.innerException, this.stackTrace) {
     _initJsonMap(message);
   }
 
-  void _initJsonMap(String message) {
+  void _initJsonMap(String? message) {
     if (message != null && message.isNotEmpty) {
       try {
         this.message = message;
@@ -49,9 +49,9 @@ class ApiException implements Exception {
   }
 
   String action() {
-    String action;
-    if (_jsonMap != null && _jsonMap.containsKey('action')) {
-      action = _jsonMap['action'];
+    String? action;
+    if (_jsonMap != null && _jsonMap!.containsKey('action')) {
+      action = _jsonMap!['action'];
     }
 
     return action ?? '';
@@ -62,8 +62,8 @@ class ApiException implements Exception {
   /// This provides a reason for only a few common status codes.
   ///
   String reason({String resource = 'resource'}) {
-    if (_jsonMap != null && _jsonMap.containsKey('errorMsg')) {
-      final String errorMsg = _jsonMap['errorMsg'];
+    if (_jsonMap != null && _jsonMap!.containsKey('errorMsg')) {
+      final String? errorMsg = _jsonMap!['errorMsg'];
       if (errorMsg != null && errorMsg.isNotEmpty) {
         return errorMsg;
       }
@@ -98,7 +98,7 @@ class ApiException implements Exception {
         return "We're experiencing difficulties reaching Affinity. Please try again.";
 
       default:
-        return message;
+        return message ?? '';
     }
   }
 }

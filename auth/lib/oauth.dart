@@ -4,7 +4,7 @@ import 'query_param.dart';
 class OAuth implements Authentication {
   OAuth({this.accessToken});
 
-  String accessToken;
+  String? accessToken;
 
   @override
   void applyToParams(

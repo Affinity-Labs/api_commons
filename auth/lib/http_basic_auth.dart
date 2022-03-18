@@ -4,8 +4,8 @@ import 'authentication.dart';
 import 'query_param.dart';
 
 class HttpBasicAuth implements Authentication {
-  String username;
-  String password;
+  String? username;
+  String? password;
 
   @override
   void applyToParams(
