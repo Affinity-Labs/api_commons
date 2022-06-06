@@ -76,27 +76,27 @@ class ApiException implements Exception {
     switch (code) {
       // 2xx
       case HttpStatus.ok:
-        return 'Your request has been processed successfully';
+        return 'Your request has been processed successfully [$code]';
       case HttpStatus.created:
         return 'The $resource has been created successfully';
 
       // 4xx
       case HttpStatus.badRequest:
-        return "Your request couldn’t be processed. Please try again";
+        return "Your request couldn’t be processed. Please try again [$code]";
       case HttpStatus.unauthorized:
-        return 'Session expired. Please login to continue';
+        return 'Session expired. Please login to continue [$code]';
       case HttpStatus.forbidden:
-        return 'Access denied';
+        return 'Access denied [$code]';
       case HttpStatus.notFound:
-        return 'The requested $resource was not found';
+        return 'The requested $resource was not found [$code]';
 
       // 5xx
       case HttpStatus.internalServerError:
-        return "Something went wrong on our side. We’re working to fix it.";
+        return "Something went wrong on our side. We’re working to fix it. [$code]";
 
       case HttpStatus.badGateway:
       case HttpStatus.gatewayTimeout:
-        return "We're experiencing difficulties reaching Affinity. Please try again.";
+        return "We're experiencing difficulties reaching Affinity. Please try again. [$code]";
 
       default:
         return message ?? '';
