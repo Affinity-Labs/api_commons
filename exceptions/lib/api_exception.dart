@@ -82,6 +82,7 @@ class ApiException implements Exception {
 
       // 4xx
       case HttpStatus.badRequest:
+      case HttpStatus.unprocessableEntity:
         return "Your request couldn’t be processed. Please try again [$code]";
       case HttpStatus.unauthorized:
         return 'Session expired. Please login to continue [$code]';
