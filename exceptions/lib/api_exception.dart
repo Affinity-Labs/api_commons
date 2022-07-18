@@ -28,6 +28,17 @@ class ApiException implements Exception {
           _jsonMap = _decodedJson;
         }
       } catch (e) {
+        _jsonMap = {};
+        var matches = RegExp(r'({.+})').allMatches(message);
+        for (var i = 0; i < matches.length; i++) {
+          try {
+            var group = matches.elementAt(i).group(0) ?? '';
+            Map<String, dynamic> map = jsonDecode(group);
+            _jsonMap?.addAll(map);
+          } catch (_) {
+            // Ignore error
+          }
+        }
         // Ignore error
       }
     }
