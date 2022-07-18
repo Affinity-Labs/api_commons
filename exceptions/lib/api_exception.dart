@@ -62,8 +62,13 @@ class ApiException implements Exception {
   /// This provides a reason for only a few common status codes.
   ///
   String reason({String resource = 'resource'}) {
-    if (_jsonMap != null && _jsonMap!.containsKey('errorMsg')) {
-      final String? errorMsg = _jsonMap!['errorMsg'];
+    if (_jsonMap != null) {
+      final String? errorMsg = _jsonMap!.containsKey('errorMsg')
+          ? _jsonMap!['errorMsg']
+          : _jsonMap!.containsKey('message')
+              ? _jsonMap!['message']
+              : null;
+
       if (errorMsg != null && errorMsg.isNotEmpty) {
         return errorMsg;
       }
