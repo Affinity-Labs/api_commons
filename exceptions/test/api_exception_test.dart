@@ -24,4 +24,19 @@ HTTP response headers: {access-control-allow-headers=[Content-Type, Authorizatio
     final String reason = exception.reason();
     expect(reason, 'The provided credentials are incorrect.');
   });
+
+  test('Parse error with errors content correctly', () {
+    final exception = ApiException(400, '''
+[
+{
+"field": "idNumber",
+"errors": [
+      "Invalid Id Number format"
+    ]
+  }
+]
+''');
+    final String reason = exception.reason();
+    expect(reason, 'Invalid Id Number format');
+  });
 }

@@ -74,11 +74,17 @@ class ApiException implements Exception {
   ///
   String reason({String resource = 'resource'}) {
     if (_jsonMap != null) {
-      final String? errorMsg = _jsonMap!.containsKey('errorMsg')
-          ? _jsonMap!['errorMsg']
-          : _jsonMap!.containsKey('message')
-              ? _jsonMap!['message']
-              : null;
+      String? errorMsg;
+      if (_jsonMap!.containsKey('errorMsg')) {
+        errorMsg = _jsonMap!['errorMsg'];
+      } else if (_jsonMap!.containsKey('errors')) {
+        final errors = _jsonMap!['errors'];
+        errorMsg = (errors is List && errors.isNotEmpty)
+            ? errors.first
+            : errors.toString();
+      } else if (_jsonMap!.containsKey('message')) {
+        errorMsg = _jsonMap!['message'];
+      }
 
       if (errorMsg != null && errorMsg.isNotEmpty) {
         return errorMsg;
