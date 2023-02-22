@@ -80,9 +80,10 @@ class ApiException implements Exception {
       } else if (_jsonMap!.containsKey('errors')) {
         final errors = _jsonMap!['errors'];
         errorMsg = (errors is List && errors.isNotEmpty)
-            ? errors.first
-            : errors.toString();
-      } else if (_jsonMap!.containsKey('message')) {
+            ? errors.first.toString()
+            : null;
+      }
+      if (errorMsg == null && _jsonMap!.containsKey('message')) {
         errorMsg = _jsonMap!['message'];
       }
 
