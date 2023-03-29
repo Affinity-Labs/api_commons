@@ -37,6 +37,6 @@ HTTP response headers: {access-control-allow-headers=[Content-Type, Authorizatio
 ]
 ''');
     final String reason = exception.reason();
-    expect(reason, 'Invalid Id Number format');
+    expect(reason, 'idNumber: Invalid Id Number format');
   });
 }

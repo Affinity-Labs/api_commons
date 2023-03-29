@@ -82,6 +82,9 @@ class ApiException implements Exception {
         errorMsg = (errors is List && errors.isNotEmpty)
             ? errors.first.toString()
             : null;
+        if ((errorMsg ?? '').isNotEmpty && _jsonMap!.containsKey('field')) {
+          errorMsg = '${_jsonMap!["field"]}: $errorMsg';
+        }
       }
       if (errorMsg == null && _jsonMap!.containsKey('message')) {
         errorMsg = _jsonMap!['message'];
