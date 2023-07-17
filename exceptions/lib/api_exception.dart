@@ -73,6 +73,10 @@ class ApiException implements Exception {
   /// This provides a reason for only a few common status codes.
   ///
   String reason({String resource = 'resource'}) {
+    if (innerException != null && innerException is SocketException) {
+      return 'Please check your internet connection and try again';
+    }
+
     if (_jsonMap != null) {
       String? errorMsg;
       if (_jsonMap!.containsKey('errorMsg')) {
@@ -93,10 +97,6 @@ class ApiException implements Exception {
       if (errorMsg != null && errorMsg.isNotEmpty) {
         return errorMsg;
       }
-    }
-
-    if (innerException != null && innerException is SocketException) {
-      return 'Please check your internet connection and try again';
     }
 
     switch (code) {
