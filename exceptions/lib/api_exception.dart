@@ -77,6 +77,10 @@ class ApiException implements Exception {
       return 'Please check your internet connection and try again';
     }
 
+    if (code == HttpStatus.internalServerError) {
+      return "Something went wrong on our side. We’re working to fix it. [$code]";
+    }
+
     if (_jsonMap != null) {
       String? errorMsg;
       if (_jsonMap!.containsKey('errorMsg')) {
@@ -116,10 +120,6 @@ class ApiException implements Exception {
         return 'Access denied [$code]';
       case HttpStatus.notFound:
         return 'The requested $resource was not found [$code]';
-
-      // 5xx
-      case HttpStatus.internalServerError:
-        return "Something went wrong on our side. We’re working to fix it. [$code]";
 
       case HttpStatus.badGateway:
       case HttpStatus.gatewayTimeout:
