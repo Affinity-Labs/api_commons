@@ -85,6 +85,8 @@ class ApiException implements Exception {
       String? errorMsg;
       if (_jsonMap!.containsKey('errorMsg')) {
         errorMsg = _jsonMap!['errorMsg'];
+      } else if (_jsonMap!.containsKey('message')) {
+        errorMsg = _jsonMap!['message'];
       } else if (_jsonMap!.containsKey('errors')) {
         final errors = _jsonMap!['errors'];
         errorMsg = (errors is List && errors.isNotEmpty)
@@ -93,9 +95,6 @@ class ApiException implements Exception {
         if ((errorMsg ?? '').isNotEmpty && _jsonMap!.containsKey('field')) {
           errorMsg = '${_jsonMap!["field"]}: $errorMsg';
         }
-      }
-      if (errorMsg == null && _jsonMap!.containsKey('message')) {
-        errorMsg = _jsonMap!['message'];
       }
 
       if (errorMsg != null && errorMsg.isNotEmpty) {
