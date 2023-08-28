@@ -81,6 +81,10 @@ class ApiException implements Exception {
       return "Something went wrong on our side. We’re working to fix it. [$code]";
     }
 
+    if (code == HttpStatus.forbidden) {
+      return 'Access denied. Please contact support for assistance. [$code]';
+    }
+
     if (_jsonMap != null) {
       String? errorMsg;
       if (_jsonMap!.containsKey('errorMsg')) {
