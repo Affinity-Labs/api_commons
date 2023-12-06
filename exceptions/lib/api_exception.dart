@@ -120,7 +120,7 @@ class ApiException implements Exception {
       case HttpStatus.unauthorized:
         return 'Session expired. Please login to continue';
       case HttpStatus.forbidden:
-        return 'Access denied. Please contact support for assistance.';
+        return "We're unable to process your request at this moment. Please contact support.";
       case HttpStatus.notFound:
         return 'The requested $resource was not found';
 
