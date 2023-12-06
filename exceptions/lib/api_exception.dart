@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
 
+final _errorRegex = RegExp(r'[\w ]+');
+
 class ApiException implements Exception {
   int code = 0;
   String? message;
@@ -89,16 +91,31 @@ class ApiException implements Exception {
       String? errorMsg;
       if (_jsonMap!.containsKey('errorMsg')) {
         errorMsg = _jsonMap!['errorMsg'];
-      } else if (_jsonMap!.containsKey('message')) {
-        errorMsg = _jsonMap!['message'];
       } else if (_jsonMap!.containsKey('errors')) {
         final errors = _jsonMap!['errors'];
-        errorMsg = (errors is List && errors.isNotEmpty)
-            ? errors.first.toString()
-            : null;
+
+        if (errors is List && errors.isNotEmpty) {
+          final firstItem = errors.first;
+          if (firstItem is Map) {
+            if (firstItem.containsKey('errors')) {
+              final regexResults =
+                  _errorRegex.firstMatch(firstItem['errors'].toString());
+              if (regexResults != null) {
+                errorMsg = regexResults[0];
+              } else {
+                errorMsg = firstItem['errors'].toString();
+              }
+            }
+          } else {
+            errorMsg = errors.first.toString();
+          }
+        }
+
         if ((errorMsg ?? '').isNotEmpty && _jsonMap!.containsKey('field')) {
           errorMsg = '${_jsonMap!["field"]}: $errorMsg';
         }
+      } else if (_jsonMap!.containsKey('message')) {
+        errorMsg = _jsonMap!['message'];
       }
 
       if (errorMsg != null && errorMsg.isNotEmpty) {

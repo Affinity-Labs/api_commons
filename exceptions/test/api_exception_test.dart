@@ -39,4 +39,22 @@ HTTP response headers: {access-control-allow-headers=[Content-Type, Authorizatio
     final String reason = exception.reason();
     expect(reason, 'idNumber: Invalid Id Number format');
   });
+
+  test('Parse field errors from content correctly', () {
+    final exception = ApiException(400, '''
+{
+    "message": "The given data was invalid",
+    "errors": [
+        {
+            "field": "title",
+            "errors": [
+                "Invalid title"
+            ]
+        }
+    ]
+}
+''');
+    final String reason = exception.reason();
+    expect(reason, 'Invalid title');
+  });
 }
