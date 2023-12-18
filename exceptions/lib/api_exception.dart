@@ -80,7 +80,7 @@ class ApiException implements Exception {
     }
 
     if (code == HttpStatus.internalServerError) {
-      return "Something went wrong on our side. We’re working to fix it. [$code]";
+      return "Something went wrong on our side. We’re working to fix it.";
     }
 
     if (code == HttpStatus.forbidden) {
