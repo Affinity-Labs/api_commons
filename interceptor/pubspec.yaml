@@ -1,6 +1,6 @@
 name: interceptor
 description: A simple package to intercept http requests and responses.
-version: 0.4.2
+version: 0.4.3
 author:
 homepage:
 
