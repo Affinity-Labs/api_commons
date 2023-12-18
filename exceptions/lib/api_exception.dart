@@ -84,7 +84,7 @@ class ApiException implements Exception {
     }
 
     if (code == HttpStatus.forbidden) {
-      return 'Access denied. Please contact support for assistance. [$code]';
+      return "We're unable to process your request at this moment. Please contact support.";
     }
 
     if (_jsonMap != null) {
