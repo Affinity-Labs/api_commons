@@ -70,6 +70,15 @@ class ApiException implements Exception {
     return action ?? '';
   }
 
+  String code() {
+    String? code;
+    if (_jsonMap != null && _jsonMap!.containsKey('code')) {
+      code = _jsonMap!['code'];
+    }
+
+    return code ?? '';
+  }
+
   ///
   /// Provide reason for exception based on http status code value.
   /// This provides a reason for only a few common status codes.
