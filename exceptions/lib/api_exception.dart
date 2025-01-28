@@ -114,7 +114,9 @@ class ApiException implements Exception {
         if ((errorMsg ?? '').isNotEmpty && _jsonMap!.containsKey('field')) {
           errorMsg = '${_jsonMap!["field"]}: $errorMsg';
         }
-      } else if (_jsonMap!.containsKey('message')) {
+      } 
+
+      if ((errorMsg ?? '').isEmpty && _jsonMap!.containsKey('message')) {
         errorMsg = _jsonMap!['message'];
       }
 
