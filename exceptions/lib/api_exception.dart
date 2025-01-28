@@ -70,13 +70,13 @@ class ApiException implements Exception {
     return action ?? '';
   }
 
-  String code() {
-    String? code;
-    if (_jsonMap != null && _jsonMap!.containsKey('code')) {
-      code = _jsonMap!['code'];
+  String content(String key) {
+    String? content;
+    if (_jsonMap != null && _jsonMap!.containsKey(key)) {
+      content = _jsonMap![key];
     }
 
-    return code ?? '';
+    return content ?? '';
   }
 
   ///
