@@ -88,7 +88,7 @@ class ApiException implements Exception {
       return 'Please check your internet connection and try again';
     }
 
-    if (code == HttpStatus.internalServerError) {
+    if (code >= HttpStatus.internalServerError) {
       return "Something went wrong on our side. We’re working to fix it.";
     }
 
